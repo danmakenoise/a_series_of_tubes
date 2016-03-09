@@ -57,8 +57,8 @@ describe TubeState::Session do
         cookie_string = response.headers['Set-Cookie']
         cookie = Rack::Utils.parse_query cookie_string
         cookie_hash = JSON.parse cookie["_#{APP_NAME}"]
-        expect(cookie_hash['value']['doc']).to eq 'brown'
-        expect(cookie_hash['value']['time_machine']).to eq 'delorean'
+        expect(cookie_hash['doc']).to eq 'brown'
+        expect(cookie_hash['time_machine']).to eq 'delorean'
       end
     end
   end

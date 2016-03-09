@@ -36,7 +36,7 @@ describe TubeController do
       cookie = Rack::Utils.parse_query cookie_string
       cookie_value = cookie["_#{APP_NAME}"]
       cookie_hash = JSON.parse cookie_value
-      expect(cookie_hash['value']['name']).to eq 'sylvester'
+      expect(cookie_hash['name']).to eq 'sylvester'
     end
   end
 
