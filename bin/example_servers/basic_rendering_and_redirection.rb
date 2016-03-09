@@ -1,9 +1,9 @@
 # example server 01
 # when the path is '/cats' displays 'hello cats!'
-# all other paths automaticall redirect to '/cats'
+# all other paths automatically redirect to '/cats'
 
 require 'rack'
-require_relative '../lib/tube_controller'
+require_relative '../../lib/tube_controller'
 
 class MyController < TubeController
   def go

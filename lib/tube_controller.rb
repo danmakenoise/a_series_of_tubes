@@ -1,4 +1,6 @@
 require 'erb'
+require_relative './tube_support'
+require_relative './tube_state'
 
 class TubeController
   def initialize request, response
@@ -7,8 +9,18 @@ class TubeController
   end
 
   def redirect_to url
+    prevent_double_render
+    set_rendered
+
     self.response.header['location'] = url
     self.response.status = 302
+    self.session.store_session self.response
+  end
+
+  def render template_name
+    controller_name = self.class.to_s.underscore
+    filename = "#{APP_DIRECTORY}/views/#{controller_name}/#{template_name}.html.erb"
+    render_content ERB.new(File.read(filename)).result(binding), 'text/html'
   end
 
   def render_content content, content_type
@@ -17,6 +29,11 @@ class TubeController
 
     self.response['Content-Type'] = content_type
     self.response.write content
+    self.session.store_session self.response
+  end
+
+  def session
+    @session ||= TubeState::Session.new self.request
   end
 
   protected

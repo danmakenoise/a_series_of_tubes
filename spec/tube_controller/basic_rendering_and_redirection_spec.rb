@@ -1,7 +1,7 @@
 require 'rack'
 require 'tube_controller'
 
-describe TubeController do
+describe "TubeController | Basic Rendering and Redirection" do
   before :all do
     class UsersController < TubeController
       def index
