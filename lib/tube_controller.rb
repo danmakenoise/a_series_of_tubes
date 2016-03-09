@@ -3,9 +3,10 @@ require_relative './tube_support'
 require_relative './tube_state'
 
 class TubeController
-  def initialize request, response
+  def initialize request, response, params = {}
     @request = request
     @response = response
+    @params = {}
   end
 
   def redirect_to url
@@ -38,7 +39,7 @@ class TubeController
 
   protected
 
-  attr_reader :response, :request
+  attr_reader :params, :response, :request
 
   private
 
