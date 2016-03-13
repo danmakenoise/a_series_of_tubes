@@ -6,7 +6,12 @@ class TubeController
   def initialize request, response, params = {}
     @request = request
     @response = response
-    @params = {}
+    @params = params.merge request.params
+  end
+
+  def invoke_action action
+    self.send action
+    render action unless @rendered
   end
 
   def redirect_to url
@@ -22,6 +27,7 @@ class TubeController
     controller_name = self.class.to_s.underscore
     filename = "#{APP_DIRECTORY}/views/#{controller_name}/#{template_name}.html.erb"
     render_content ERB.new(File.read(filename)).result(binding), 'text/html'
+    self.session.store_session self.response
   end
 
   def render_content content, content_type

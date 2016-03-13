@@ -9,6 +9,7 @@ module TubeState
     end
 
     def [] key
+      debugger if key == 'cats'
       self.store[key]
     end
 
