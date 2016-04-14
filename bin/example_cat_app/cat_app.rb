@@ -17,7 +17,7 @@ class CatsController < TubeController
   def create
     cat = Cat.new params['cat']
     save_cat cat
-    render :index
+    redirect_to '/cats'
   end
 
   def index
@@ -28,15 +28,15 @@ class CatsController < TubeController
     @cat = Cat.new
   end
 
-  private
+  # private
 
   def get_cats_from_cookies
-    session['cats'] ? session['cats'] : nil
+    session['cats'] ? session['cats'] : []
   end
 
   def save_cat cat
-    session['cats'] ||= ""
-    session['cats'] += "#{cat.owner}'s Cat: #{cat.name}"
+    session['cats'] ||= []
+    session['cats'] << { owner: cat.owner, name: cat.name }
   end
 end
 
