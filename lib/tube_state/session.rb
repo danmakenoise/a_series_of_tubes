@@ -9,7 +9,7 @@ module TubeState
       @request = request
       @name = "_#{APP_NAME}"
       @store = read_or_create_session_cookie
-      @flash = TubeState::Flash.new self.store['flash']
+      @flash = TubeState::Flash.new (self.store['flash'] || {})
     end
 
     def [] key

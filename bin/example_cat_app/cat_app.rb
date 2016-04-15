@@ -17,6 +17,7 @@ class CatsController < TubeController
   def create
     cat = Cat.new params['cat']
     save_cat cat
+    flash['success'] = 'Cat Created!'
     redirect_to '/cats'
   end
 
