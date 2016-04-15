@@ -1,5 +1,0 @@
-require 'rack'
-require_relative './tubes.rb'
-require_relative './tube_controller.rb'
-require_relative './tube_state.rb'
-require_relative './tube_support.rb'

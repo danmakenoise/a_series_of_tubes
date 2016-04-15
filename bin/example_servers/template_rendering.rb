@@ -2,11 +2,11 @@
 # show page renders each cat in the instance variable 'cats'
 
 require 'rack'
-require_relative '../../lib/tube_controller'
+require_relative '../../lib/a_series_of_tubes'
 
 APP_DIRECTORY = './bin/example_servers'
 
-class CatsController < TubeController
+class CatsController < ASeriesOfTubes::TubeController
   def go
     @cats = ['Miho', 'Salem']
     render :index
