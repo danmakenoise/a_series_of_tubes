@@ -1,11 +1,15 @@
+require_relative './flash.rb'
 require 'json'
 
 module TubeState
   class Session
+    attr_reader :flash
+
     def initialize request
       @request = request
       @name = "_#{APP_NAME}"
       @store = read_or_create_session_cookie
+      @flash = TubeState::Flash.new self.store['flash']
     end
 
     def [] key
@@ -17,6 +21,7 @@ module TubeState
     end
 
     def store_session response
+      self.store['flash'] = @flash.next
       response.set_cookie self.name, generate_cookie_hash
     end
 

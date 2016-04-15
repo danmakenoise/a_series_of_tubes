@@ -43,6 +43,10 @@ class TubeController
     @session ||= TubeState::Session.new self.request
   end
 
+  def flash
+    @flash ||= self.session.flash
+  end
+
   protected
 
   attr_reader :params, :response, :request

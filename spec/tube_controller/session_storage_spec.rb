@@ -51,4 +51,31 @@ describe TubeController do
     let(:args) { ['http://www.appacademy.io'] }
     include_examples 'storing session data'
   end
+
+  describe '#flash' do
+    it 'returns a flash instance' do
+      expect(cats_controller.flash).to be_a TubeState::Flash
+    end
+
+    it 'stores data into the next request cycle' do
+      cats_controller.flash['hello'] = 'world'
+      cats_controller.send :render_content, 'test', 'text/plain'
+      cookie_string = response['Set-Cookie']
+      cookie = Rack::Utils.parse_query cookie_string
+      cookie_value = cookie["_#{APP_NAME}"]
+      cookie_hash = JSON.parse cookie_value
+      expect(cookie_hash['flash']['hello']).to eq 'world'
+    end
+
+    it 'existing flash data does not persist after one request' do
+      request.cookies["_#{APP_NAME}"] = {'flash' => {'hello' => 'world'}}.to_json
+      expect(cats_controller.flash['hello']).to eq 'world'
+      cats_controller.send :render_content, 'test', 'text/plain'
+      cookie_string = response['Set-Cookie']
+      cookie = Rack::Utils.parse_query cookie_string
+      cookie_value = cookie["_#{APP_NAME}"]
+      cookie_hash = JSON.parse cookie_value
+      expect(cookie_hash['flash']['hello']).to be_nil
+    end
+  end
 end
