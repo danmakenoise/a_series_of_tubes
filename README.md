@@ -23,13 +23,58 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+**A Series of Tubes** is a toolset for creating simple RESTful websites in Ruby. If you are interested in learning how to use it in your project, check out the [[Sample Server](http://www.github.com/rake-db-migrate/a_series_of_tubes_demo) for a suggested application structure.
 
-## Development
+There are four main components to **A Series of Tubes**:
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+### Tubes
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Tubes are the individual routes users can navigate on your server. You can create a `Tube` via the `Tuber` class. An example set-up is as follows:
+
+```ruby
+tuber = ASeriesOfTubes::Tubes::Tuber.new
+
+tuber.draw do
+  get  Regexp.new('^/$'),         CatsController, :index
+  get  Regexp.new('^/cats$'),     CatsController, :index
+  get  Regexp.new('^/cats/new$'), CatsController, :new
+  post Regexp.new('^/cats$'),     CatsController, :create
+end
+```
+
+The `Tuber` itself is mainly useful as a means for creating the various instances of `Tube` using its `draw` function. Within `draw` you create a `Tube` with the following syntax:
+
+```ruby
+  METHOD REGEX_FOR_PATH, TUBE_CONTROLLER_NAME, TUBE_CONTROLLER_ACTIONS
+
+  # METHOD can be get, post, put, or delete
+```
+
+### TubeController
+
+The `TubeController` is the class that will actually render your HTML/ERB views. For example, in our sample server, the `CatsController#index` action looks like this:
+
+```ruby
+class CatsController < ASeriesOfTubes::TubeController
+  def index
+    @cats = get_cats_from_cookies
+  end
+
+  def get_cats_from_cookies
+    session['cats'] ? session['cats'] : []
+  end
+end
+```
+
+When a `Tube` gets matched to the `index` action, an instance variable `@cats` is created and is populated with any data in the session cookie under the key `cats`. This is another important feature of the `TubeController`! You can user `session[KEY]` to store data to the session cookies of the site. Similarly, there is `flash[KEY]` and `flash.now[KEY]`, which can be used to only store information for the next render or redirect.
+
+### TubeSupport
+
+This module just contains helper functions for the entire gem.
+
+### TubeState
+
+This module contains the internal workings of the `session` and `flash` abilities of the `TubeController` class.
 
 ## Contributing
 
