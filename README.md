@@ -23,7 +23,7 @@ Or install it yourself as:
 
 ## Usage
 
-**A Series of Tubes** is a toolset for creating simple RESTful websites in Ruby. If you are interested in learning how to use it in your project, check out the [[Sample Server](http://www.github.com/rake-db-migrate/a_series_of_tubes_demo) for a suggested application structure.
+**A Series of Tubes** is a toolset for creating simple RESTful websites in Ruby. If you are interested in learning how to use it in your project, check out the [Sample Server](http://www.github.com/rake-db-migrate/a_series_of_tubes_demo) for a suggested application structure.
 
 There are four main components to **A Series of Tubes**:
 
