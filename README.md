@@ -1,9 +1,8 @@
-# ASeriesOfTubes
+# A Series Of Tubes
 
 This is a simple web development framework built in Ruby! It is currently under development, so stay tuned for more updates!
 
-[Sample Server](http://www.github.com/rake-db-migrate/a_series_of_tubes_demo)
-[Live Link](http://aseriesoftubes-demo.herokuapp.com)
+[Sample Server](http://www.github.com/rake-db-migrate/a_series_of_tubes_demo) | [Live Link](http://aseriesoftubes-demo.herokuapp.com)
 
 ## Installation
 
