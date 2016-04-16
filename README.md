@@ -2,7 +2,7 @@
 
 This is a simple web development framework built in Ruby! It is currently under development, so stay tuned for more updates!
 
-[Sample Server](http://www.github.com/rake-db-migrate/a_series_of_tubes_demo) | [Live Link](http://aseriesoftubes-demo.herokuapp.com)
+[Sample Server](http://www.github.com/danmakenoise/a_series_of_tubes_demo) | [Live Link](http://aseriesoftubes-demo.herokuapp.com)
 
 ## Installation
 
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-**A Series of Tubes** is a toolset for creating simple RESTful websites in Ruby. If you are interested in learning how to use it in your project, check out the [Sample Server](http://www.github.com/rake-db-migrate/a_series_of_tubes_demo) for a suggested application structure.
+**A Series of Tubes** is a toolset for creating simple RESTful websites in Ruby. If you are interested in learning how to use it in your project, check out the [Sample Server](http://www.github.com/danmakenoise/a_series_of_tubes_demo) for a suggested application structure.
 
 There are four main components to **A Series of Tubes**:
 
@@ -77,7 +77,7 @@ This module contains the internal workings of the `session` and `flash` abilitie
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/rake-db-migrate/a_series_of_tubes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/danmakenoise/a_series_of_tubes. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
 
 
 ## License
