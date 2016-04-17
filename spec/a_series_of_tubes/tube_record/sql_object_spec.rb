@@ -209,5 +209,34 @@ describe ASeriesOfTubes::TubeRecord::SQLObject do
         expect(cat2.owner_id).to eq(1)
       end
     end
+
+    describe '#update' do
+      it 'saves updated attributes to the DB' do
+        human = Human.find(2)
+
+        human.fname = 'Matthew'
+        human.lname = 'von Rubens'
+        human.update
+
+        # pull the human again
+        human = Human.find(2)
+        expect(human.fname).to eq('Matthew')
+        expect(human.lname).to eq('von Rubens')
+      end
+    end
+
+    describe '#save' do
+      it 'calls #insert when record does not exist' do
+        human = Human.new
+        expect(human).to receive(:insert)
+        human.save
+      end
+
+      it 'calls #update when record already exists' do
+        human = Human.find(1)
+        expect(human).to receive(:update)
+        human.save
+      end
+    end
   end
 end

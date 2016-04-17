@@ -86,6 +86,24 @@ module ASeriesOfTubes
 
         self.id = ASeriesOfTubes::TubeRecord::DBConnection.last_insert_row_id
       end
+
+      def update
+        columns = self.class.columns
+        set_values = columns.map { |attr_name| "#{attr_name} = ?" }
+
+        ASeriesOfTubes::TubeRecord::DBConnection.execute(<<-SQL, *attribute_values)
+          UPDATE
+            #{self.class.table_name}
+          SET
+            #{set_values.join(',')}
+          WHERE
+            id = #{self.id}
+        SQL
+      end
+
+      def save
+        self.id ? self.update : self.insert
+      end
     end
   end
 end
