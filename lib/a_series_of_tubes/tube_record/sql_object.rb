@@ -1,3 +1,5 @@
+require 'byebug'
+
 module ASeriesOfTubes
   module TubeRecord
     class SQLObject
@@ -8,6 +10,13 @@ module ASeriesOfTubes
           FROM
             #{self.table_name}
         SQL
+      end
+
+      def self.finalize!
+        self.columns.each do |column|
+          define_method(column) { self.attributes[column] }
+          define_method("#{column}=") { |value| self.attributes[column] = value }
+        end
       end
 
       def self.table_name

@@ -66,4 +66,58 @@ describe ASeriesOfTubes::TubeRecord::SQLObject do
       end
     end
   end
+
+  context 'after ::finalize!' do
+    before(:all) do
+      class Cat < ASeriesOfTubes::TubeRecord::SQLObject
+        self.finalize!
+      end
+
+      class Human < ASeriesOfTubes::TubeRecord::SQLObject
+        self.table_name = 'humans'
+
+        self.finalize!
+      end
+    end
+
+    after(:all) do
+      Object.send(:remove_const, :Cat)
+      Object.send(:remove_const, :Human)
+    end
+
+    describe '::finalize!' do
+      it 'creates getter methods for each column' do
+        c = Cat.new
+        expect(c.respond_to? :something).to be false
+        expect(c.respond_to? :name).to be true
+        expect(c.respond_to? :id).to be true
+        expect(c.respond_to? :owner_id).to be true
+      end
+
+      it 'creates setter methods for each column' do
+        c = Cat.new
+        c.name = "Nick Diaz"
+        c.id = 209
+        c.owner_id = 2
+        expect(c.name).to eq 'Nick Diaz'
+        expect(c.id).to eq 209
+        expect(c.owner_id).to eq 2
+      end
+
+      it 'created getter methods read from attributes hash' do
+        c = Cat.new
+        c.instance_variable_set(:@attributes, {name: "Nick Diaz"})
+        expect(c.name).to eq 'Nick Diaz'
+      end
+
+      it 'created setter methods use attributes hash to store data' do
+        c = Cat.new
+        c.name = "Nick Diaz"
+
+        expect(c.instance_variables).to include(:@attributes)
+        expect(c.instance_variables).not_to include(:@name)
+        expect(c.attributes[:name]).to eq 'Nick Diaz'
+      end
+    end
+  end
 end
