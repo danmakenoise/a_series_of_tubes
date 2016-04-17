@@ -23,5 +23,17 @@ describe ASeriesOfTubes::TubeRecord::SQLObject do
         expect(Cat.table_name).to eq('cats')
       end
     end
+
+    describe '::table_name=' do
+      it 'sets table name' do
+        class Human < ASeriesOfTubes::TubeRecord::SQLObject
+          self.table_name = 'humans'
+        end
+
+        expect(Human.table_name).to eq('humans')
+
+        Object.send(:remove_const, :Human)
+      end
+    end
   end
 end
