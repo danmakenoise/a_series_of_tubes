@@ -24,6 +24,21 @@ module ASeriesOfTubes
       def self.parse_all(results)
         results.map { |params| self.new(params) }
       end
+      
+      def self.find(id)
+        result = DBConnection.execute(<<-SQL, id: id).first
+          SELECT
+            *
+          FROM
+            #{self.table_name}
+          WHERE
+            #{self.table_name}.id = :id
+          LIMIT
+            1
+        SQL
+
+        self.new(result) if result
+      end
 
       def self.finalize!
         self.columns.each do |column|

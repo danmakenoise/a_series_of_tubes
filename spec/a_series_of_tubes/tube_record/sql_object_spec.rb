@@ -167,5 +167,17 @@ describe ASeriesOfTubes::TubeRecord::SQLObject do
       end
     end
 
+    describe '::find' do
+      it 'fetches single objects by id' do
+        c = Cat.find(1)
+
+        expect(c).to be_instance_of(Cat)
+        expect(c.id).to eq(1)
+      end
+
+      it 'returns nil if no object has the given id' do
+        expect(Cat.find(123)).to be_nil
+      end
+    end
   end
 end
