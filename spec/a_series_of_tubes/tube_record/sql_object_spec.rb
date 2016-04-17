@@ -119,5 +119,26 @@ describe ASeriesOfTubes::TubeRecord::SQLObject do
         expect(c.attributes[:name]).to eq 'Nick Diaz'
       end
     end
+    
+    describe '#initialize' do
+      it 'calls appropriate setter method for each item in params' do
+        # We have to set method expectations on the cat object *before*
+        # #initialize gets called, so we use ::allocate to create a
+        # blank Cat object first and then call #initialize manually.
+        c = Cat.allocate
+
+        expect(c).to receive(:name=).with('Don Frye')
+        expect(c).to receive(:id=).with(100)
+        expect(c).to receive(:owner_id=).with(4)
+
+        c.send(:initialize, {name: 'Don Frye', id: 100, owner_id: 4})
+      end
+
+      it 'throws an error when given an unknown attribute' do
+        expect do
+          Cat.new(favorite_band: 'Anybody but The Eagles')
+        end.to raise_error "unknown attribute 'favorite_band'"
+      end
+    end
   end
 end
