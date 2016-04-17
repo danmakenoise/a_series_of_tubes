@@ -24,7 +24,7 @@ module ASeriesOfTubes
       def self.parse_all(results)
         results.map { |params| self.new(params) }
       end
-      
+
       def self.find(id)
         result = DBConnection.execute(<<-SQL, id: id).first
           SELECT
@@ -71,6 +71,20 @@ module ASeriesOfTubes
 
       def attribute_values
         @attributes.keys.map { |k| @attributes[k] }
+      end
+
+      def insert
+        columns = self.class.columns.drop(1)
+        question_marks = (['?'] * columns.length)
+
+        ASeriesOfTubes::TubeRecord::DBConnection.execute(<<-SQL, *attribute_values)
+          INSERT INTO
+            #{self.class.table_name} (#{columns.join(',')})
+          VALUES
+            (#{question_marks.join(',')})
+        SQL
+
+        self.id = ASeriesOfTubes::TubeRecord::DBConnection.last_insert_row_id
       end
     end
   end

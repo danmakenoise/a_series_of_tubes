@@ -179,5 +179,35 @@ describe ASeriesOfTubes::TubeRecord::SQLObject do
         expect(Cat.find(123)).to be_nil
       end
     end
+
+    describe '#attribute_values' do
+      it 'returns array of values' do
+        cat = Cat.new(id: 123, name: 'cat1', owner_id: 1)
+
+        expect(cat.attribute_values).to eq([123, 'cat1', 1])
+      end
+    end
+
+    describe '#insert' do
+      let(:cat) { Cat.new(name: 'Gizmo', owner_id: 1) }
+
+      before(:each) { cat.insert }
+
+      it 'inserts a new record' do
+        expect(Cat.all.count).to eq(6)
+      end
+
+      it 'sets the id once the new record is saved' do
+        expect(cat.id).to eq(ASeriesOfTubes::TubeRecord::DBConnection.last_insert_row_id)
+      end
+
+      it 'creates a new record with the correct values' do
+        # pull the cat again
+        cat2 = Cat.find(cat.id)
+
+        expect(cat2.name).to eq('Gizmo')
+        expect(cat2.owner_id).to eq(1)
+      end
+    end
   end
 end
