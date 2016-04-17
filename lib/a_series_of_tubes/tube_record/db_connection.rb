@@ -22,7 +22,7 @@ module ASeriesOfTubes
       end
 
       def self.instance
-        reset if @db.nil
+        reset if @db.nil?
 
         @db
       end

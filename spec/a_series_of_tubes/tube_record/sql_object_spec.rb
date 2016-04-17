@@ -35,5 +35,17 @@ describe ASeriesOfTubes::TubeRecord::SQLObject do
         Object.send(:remove_const, :Human)
       end
     end
+
+    describe '::columns' do
+      it 'returns a list of all column names as symbols' do
+        expect(Cat.columns).to eq([:id, :name, :owner_id])
+      end
+
+      it 'only queries the DB once' do
+        expect(ASeriesOfTubes::TubeRecord::DBConnection).to(
+          receive(:execute2).exactly(1).times.and_call_original)
+        3.times { Cat.columns }
+      end
+    end
   end
 end
