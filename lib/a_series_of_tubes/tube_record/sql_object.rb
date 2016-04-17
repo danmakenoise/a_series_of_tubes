@@ -17,6 +17,14 @@ module ASeriesOfTubes
       def self.table_name=(table_name)
         @table_name = table_name
       end
+
+      def attributes
+        @attributes ||= {}
+      end
+
+      def attribute_values
+        @attributes.keys.map { |k| @attributes[k] }
+      end
     end
   end
 end

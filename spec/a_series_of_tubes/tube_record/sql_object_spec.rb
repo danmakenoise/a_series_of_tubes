@@ -47,5 +47,23 @@ describe ASeriesOfTubes::TubeRecord::SQLObject do
         3.times { Cat.columns }
       end
     end
+
+    describe '#attributes' do
+      it 'returns @attributes hash byref' do
+        cat_attributes = {name: 'Gizmo'}
+        c = Cat.new
+        c.instance_variable_set('@attributes', cat_attributes)
+
+        expect(c.attributes).to equal(cat_attributes)
+      end
+
+      it 'lazily initializes @attributes to an empty hash' do
+        c = Cat.new
+
+        expect(c.instance_variables).not_to include(:@attributes)
+        expect(c.attributes).to eq({})
+        expect(c.instance_variables).to include(:@attributes)
+      end
+    end
   end
 end
