@@ -12,6 +12,19 @@ module ASeriesOfTubes
         SQL
       end
 
+      def self.all
+        self.parse_all(DBConnection.execute(<<-SQL))
+          SELECT
+            *
+          FROM
+            #{self.table_name}
+        SQL
+      end
+
+      def self.parse_all(results)
+        results.map { |params| self.new(params) }
+      end
+
       def self.finalize!
         self.columns.each do |column|
           define_method(column) { self.attributes[column] }

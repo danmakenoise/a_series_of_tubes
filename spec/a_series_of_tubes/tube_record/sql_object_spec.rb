@@ -119,7 +119,7 @@ describe ASeriesOfTubes::TubeRecord::SQLObject do
         expect(c.attributes[:name]).to eq 'Nick Diaz'
       end
     end
-    
+
     describe '#initialize' do
       it 'calls appropriate setter method for each item in params' do
         # We have to set method expectations on the cat object *before*
@@ -140,5 +140,32 @@ describe ASeriesOfTubes::TubeRecord::SQLObject do
         end.to raise_error "unknown attribute 'favorite_band'"
       end
     end
+
+    describe '::all, ::parse_all' do
+      it '::all returns all the rows' do
+        cats = Cat.all
+        expect(cats.count).to eq(5)
+      end
+
+      it '::parse_all turns an array of hashes into objects' do
+        hashes = [
+          { name: 'cat1', owner_id: 1 },
+          { name: 'cat2', owner_id: 2 }
+        ]
+
+        cats = Cat.parse_all(hashes)
+        expect(cats.length).to eq(2)
+        hashes.each_index do |i|
+          expect(cats[i].name).to eq(hashes[i][:name])
+          expect(cats[i].owner_id).to eq(hashes[i][:owner_id])
+        end
+      end
+
+      it '::all returns a list of objects, not hashes' do
+        cats = Cat.all
+        cats.each { |cat| expect(cat).to be_instance_of(Cat) }
+      end
+    end
+
   end
 end
