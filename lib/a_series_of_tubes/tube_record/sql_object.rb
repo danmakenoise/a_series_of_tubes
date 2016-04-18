@@ -1,5 +1,3 @@
-require 'byebug'
-
 module ASeriesOfTubes
   module TubeRecord
     class SQLObject
