@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    a_series_of_tubes (1.0.1)
+    a_series_of_tubes (1.1.0)
       json
       rack
       sqlite3
