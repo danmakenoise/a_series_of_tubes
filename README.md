@@ -24,7 +24,7 @@ Or install it yourself as:
 
 **A Series of Tubes** is a toolset for creating simple RESTful websites in Ruby. If you are interested in learning how to use it in your project, check out the [Sample Server](http://www.github.com/danmakenoise/a_series_of_tubes_demo) for a suggested application structure.
 
-There are four main components to **A Series of Tubes**:
+There are five main components to **A Series of Tubes**:
 
 ### Tubes
 
@@ -66,6 +66,10 @@ end
 ```
 
 When a `Tube` gets matched to the `index` action, an instance variable `@cats` is created and is populated with any data in the session cookie under the key `cats`. This is another important feature of the `TubeController`! You can user `session[KEY]` to store data to the session cookies of the site. Similarly, there is `flash[KEY]` and `flash.now[KEY]`, which can be used to only store information for the next render or redirect.
+
+### TubeRecord
+
+This module contains an ORM for working with SQL Databases. Take a look at the sample server to see it in action!
 
 ### TubeSupport
 
