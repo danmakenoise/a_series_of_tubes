@@ -8,7 +8,6 @@ Gem::Specification.new do |spec|
   spec.version       = ASeriesOfTubes::VERSION
   spec.authors       = ["Dan Phillips"]
   spec.email         = ["dan@danphillips.io"]
-
   spec.summary       = "a web development framework"
   spec.homepage      = "http://www.github.com/danmakenoise/a_series_of_tubes"
   spec.license       = "MIT"
@@ -20,8 +19,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec"
-  spec.add_runtime_dependency "rack"
-  spec.add_runtime_dependency "json"
-  spec.add_runtime_dependency "sqlite3"
+  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_runtime_dependency "rack", "~> 1.0"
+  spec.add_runtime_dependency "json", "~> 1.0"
+  spec.add_runtime_dependency "sqlite3", "~> 1.0"
 end
