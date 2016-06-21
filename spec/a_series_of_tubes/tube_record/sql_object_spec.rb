@@ -238,5 +238,20 @@ describe ASeriesOfTubes::TubeRecord::SQLObject do
         human.save
       end
     end
+
+    describe '#destroy' do
+      it 'removes the object from the database' do
+        human = Human.new
+        human.fname = 'Marty'
+        human.lname = 'McFly'
+        human.save
+
+        count = Human.all.count
+
+        human.destroy
+
+        expect(Human.all.count).to eq(count - 1)
+      end
+    end
   end
 end
