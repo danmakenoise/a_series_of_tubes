@@ -102,6 +102,17 @@ module ASeriesOfTubes
       def save
         self.id ? self.update : self.insert
       end
+
+      def destroy
+        return unless self.id
+
+        ASeriesOfTubes::TubeRecord::DBConnection.execute(<<-SQL)
+          DELETE FROM
+            #{self.class.table_name}
+          WHERE
+            id = #{self.id}
+        SQL
+      end
     end
   end
 end
