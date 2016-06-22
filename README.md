@@ -1,4 +1,4 @@
-# A Series Of Tubes
+# A Series Of Tubes [![Build Status](https://travis-ci.org/danmakenoise/a_series_of_tubes.svg?branch=master)](https://travis-ci.org/danmakenoise/a_series_of_tubes)
 
 This is a simple web development framework built in Ruby! It is currently under development, so stay tuned for more updates!
 
